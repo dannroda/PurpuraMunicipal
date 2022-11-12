@@ -10,8 +10,8 @@ config_version=4
 
 [application]
 
-config/name="musicgame"
-run/main_scene="res://Control.tscn"
+config/name="Purpura Municipal"
+run/main_scene="res://Menu.tscn"
 config/icon="res://icon.png"
 
 [debug]
