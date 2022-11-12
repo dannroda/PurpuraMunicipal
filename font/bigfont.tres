@@ -1,0 +1,9 @@
+[gd_resource type="DynamicFont" load_steps=2 format=2]
+
+[ext_resource path="res://font/NicerNightie.ttf" type="DynamicFontData" id=1]
+
+[resource]
+size = 97
+outline_size = 9
+outline_color = Color( 0.972549, 0.964706, 0.964706, 1 )
+font_data = ExtResource( 1 )
