@@ -18,6 +18,11 @@ config/icon="res://icon.png"
 
 shapes/collision/shape_color=Color( 1, 0.713726, 0.0392157, 0.419608 )
 
+[display]
+
+window/size/width=1366
+window/size/height=768
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true

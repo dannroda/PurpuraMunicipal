@@ -33,8 +33,5 @@ __meta__ = {
 modulate = Color( 0, 0, 0, 1 )
 shape = SubResource( 1 )
 
-[node name="Line2D" type="Line2D" parent="."]
-points = PoolVector2Array( 81, 61, 209, 62, 208, -61, 77, -61, 79, 61 )
-
 [connection signal="area_shape_entered" from="Nota" to="." method="_on_Nota_area_shape_entered"]
 [connection signal="area_shape_exited" from="Nota" to="." method="_on_Nota_area_shape_exited"]
