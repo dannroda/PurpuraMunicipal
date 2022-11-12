@@ -6,10 +6,16 @@ var toca_externo = false
 var falla = false
 func _ready():
 		$Nota.position.x = 500
-	
+var cantidad = 0
+var teclas_cancion = load("res://Notas.tscn").instance()
 func _process(delta):
 	if Input.is_action_just_pressed("ui_down"):
-		$Nota.position.x = 500
+		if cantidad < 5:
+			teclas_cancion.position = Vector2(500,0)
+			add_child(teclas_cancion)
+			++cantidad
+		if teclas_cancion:
+			teclas_cancion.position.x -= 100 * delta
 	if $Nota.position.x > 0:
 		$Nota.position.x -= 100 * delta
 	if Input.is_action_just_pressed("ui_up"):
