@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Boton.gd" type="Script" id=1]
 [ext_resource path="res://Notas.tscn" type="PackedScene" id=2]
 [ext_resource path="res://NotaFija.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Notas.gd" type="Script" id=4]
+[ext_resource path="res://NotaFija.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 145, 54 )
@@ -16,10 +17,12 @@ position = Vector2( 435, 0 )
 
 [node name="Fijo" parent="." instance=ExtResource( 3 )]
 position = Vector2( 143, 0 )
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_group_": true,
 "_edit_lock_": true
 }
+arr_fijo = [  ]
 
 [node name="Externo" type="Area2D" parent="."]
 position = Vector2( 143, 0 )
@@ -36,3 +39,5 @@ shape = SubResource( 1 )
 
 [connection signal="area_shape_entered" from="Nota" to="." method="_on_Nota_area_shape_entered"]
 [connection signal="area_shape_exited" from="Nota" to="." method="_on_Nota_area_shape_exited"]
+[connection signal="area_shape_entered" from="Fijo" to="." method="_on_Fijo_area_shape_entered"]
+[connection signal="area_shape_exited" from="Fijo" to="." method="_on_Fijo_area_shape_exited"]

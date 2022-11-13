@@ -1,11 +1,16 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Boton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sprites/escenario/boceto2.png" type="Texture" id=2]
-[ext_resource path="res://sprites/escenario/partitura.png" type="Texture" id=3]
+[ext_resource path="res://sprites/partitura/marco.png" type="Texture" id=3]
 [ext_resource path="res://ParallaxBackground.tscn" type="PackedScene" id=4]
-[ext_resource path="res://audio/primertema.mp3" type="AudioStream" id=6]
+[ext_resource path="res://sprites/partitura/base partitura.png" type="Texture" id=5]
+[ext_resource path="res://audio/Duelo municipal.wav" type="AudioStream" id=6]
 [ext_resource path="res://font/bigfont.tres" type="DynamicFont" id=7]
+[ext_resource path="res://sprites/Personajes/Tecladista grande.png" type="Texture" id=8]
+[ext_resource path="res://sprites/Personajes/Batero grande.png" type="Texture" id=9]
+[ext_resource path="res://sprites/Personajes/Bajista grande.png" type="Texture" id=10]
+[ext_resource path="res://sprites/Personajes/Guitarrista grande.png" type="Texture" id=11]
 
 [node name="Control" type="Control"]
 margin_right = 30.0
@@ -13,22 +18,47 @@ margin_bottom = 27.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="cuadrado" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 1032, 536 )
+z_index = 11
+texture = ExtResource( 3 )
+
 [node name="partitura" type="Sprite" parent="CanvasLayer"]
-visible = false
 position = Vector2( 960, 538 )
 z_index = 1
 z_as_relative = false
-texture = ExtResource( 3 )
+texture = ExtResource( 5 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer"]
+visible = false
 position = Vector2( 960, 540 )
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="Baterista" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 343, 524 )
+z_index = 3
+texture = ExtResource( 9 )
+
+[node name="Bajista" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 343, 524 )
+z_index = 3
+texture = ExtResource( 10 )
+
+[node name="Guitarra" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 343, 524 )
+z_index = 3
+texture = ExtResource( 11 )
+
+[node name="Tecladista" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 343, 524 )
+z_index = 3
+texture = ExtResource( 8 )
 
 [node name="Area" parent="CanvasLayer" instance=ExtResource( 1 )]
 position = Vector2( 462, 531 )
@@ -39,11 +69,28 @@ z_index = 10
 stream = ExtResource( 6 )
 autoplay = true
 
+[node name="TiempoCancion" type="Label" parent="CanvasLayer"]
+margin_left = 806.0
+margin_top = 958.0
+margin_right = 1047.0
+margin_bottom = 1082.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "Score: "
+
+[node name="TiempoArr" type="Label" parent="CanvasLayer/TiempoCancion"]
+margin_left = 478.0
+margin_right = 699.0
+margin_bottom = 98.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "0"
+
 [node name="ScoreText" type="Label" parent="CanvasLayer"]
-margin_left = 619.0
-margin_top = 45.0
-margin_right = 860.0
-margin_bottom = 169.0
+margin_left = 823.0
+margin_top = 69.0
+margin_right = 1064.0
+margin_bottom = 193.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 7 )
 text = "Score: "

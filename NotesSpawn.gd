@@ -9,6 +9,10 @@ func _on_ButtonExit_pressed():
 
 
 func _on_ButtonStart_pressed():
+	if !$sonidito.playing:
+		$sonidito.play()
+	else:
+		$sonidito.stop()
 	get_tree().change_scene("res://Control.tscn")
 	
 

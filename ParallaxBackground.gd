@@ -1,6 +1,7 @@
 extends ParallaxBackground
 
-
+var rng = RandomNumberGenerator.new()
+var timer = Timer.new()
 #var DIR = Vector2(1, 1)
 #var speed = 100
 #
@@ -16,6 +17,19 @@ onready var gente2 = $gente2
 
 var vel = 50
 
+func _ready():
+#	opacidad_luces(0.4)
+	timer.connect("timeout",self,"timers")
+	timer.wait_time = 0.5
+	add_child(timer)
+	timer.start()
+func opacidad_luces(valor):
+	$layer1/RojaDerecha.modulate.a = valor
+	$layer1/RojaIzquierda.modulate.a = valor
+	$layer1/VioletaDerecha.modulate.a = valor
+	$layer1/VioletaIzquierda.modulate.a = valor
+	$layer1/VerdeDerecha.modulate.a = valor
+	$layer1/VerdeIzquierda.modulate.a = valor
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -36,3 +50,49 @@ func moverLayer(event, obj, vel):
 	var relative_y = (mouse_y - (viewport_size.y/2)) / (viewport_size.y/2)
 	obj.motion_offset.x = vel * -relative_x
 	obj.motion_offset.y = vel * -relative_y
+
+func _process(delta):
+	pass
+func esconder_mostrar(elemento):
+#	print(luces.randi_range(0,40))
+	if rng.randi_range(0,40) < 20:
+		elemento.show()
+	else:
+		elemento.hide()
+
+func esconder_mostrar_pj():
+	var control = rng.randi_range(0,100)
+	if get_parent().get_node("CanvasLayer") != null:
+		if  0 < control && control < 25:
+			get_parent().get_node("CanvasLayer/Baterista").show()
+			get_parent().get_node("CanvasLayer/Bajista").hide()
+			get_parent().get_node("CanvasLayer/Guitarra").hide()
+			get_parent().get_node("CanvasLayer/Tecladista").hide()
+		elif 25 < control  && control < 50:
+			get_parent().get_node("CanvasLayer/Bajista").show()
+			get_parent().get_node("CanvasLayer/Baterista").hide()
+			get_parent().get_node("CanvasLayer/Guitarra").hide()
+			get_parent().get_node("CanvasLayer/Tecladista").hide()
+		elif 50 < control  && control < 75:
+			get_parent().get_node("CanvasLayer/Guitarra").show()
+			get_parent().get_node("CanvasLayer/Bajista").hide()
+			get_parent().get_node("CanvasLayer/Baterista").hide()
+			get_parent().get_node("CanvasLayer/Tecladista").hide()
+		else:
+			get_parent().get_node("CanvasLayer/Tecladista").show()
+			get_parent().get_node("CanvasLayer/Bajista").hide()
+			get_parent().get_node("CanvasLayer/Baterista").hide()
+			get_parent().get_node("CanvasLayer/Guitarra").hide()
+	
+		
+func luces_todas():
+	esconder_mostrar($layer1/RojaDerecha)
+	esconder_mostrar($layer1/RojaIzquierda)
+	esconder_mostrar($layer1/VioletaDerecha)
+	esconder_mostrar($layer1/VioletaIzquierda)
+	esconder_mostrar($layer1/VerdeDerecha)
+	esconder_mostrar($layer1/VerdeIzquierda)
+
+func timers():
+	luces_todas()
+	esconder_mostrar_pj()

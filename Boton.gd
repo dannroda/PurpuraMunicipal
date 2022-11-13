@@ -7,76 +7,105 @@ var falla = false
 var score = 0
 var contador = 0
 var posiciones = []
-var pos_temp = [[0, 153.072815, 1.63427, false], [1, 146.666702, 2.842009, false], [2, 173.333328, 3.818799, false], [3, 203.333282, 4.656605, false], [4, 223.333252, 5.652818, true], [5, 146.666702, 6.932484, false], [6, 206.666611, 7.716017, true], [7, 153.333359, 8.982694, false], [8, 189.999969, 9.997273, false], [9, 213.333267, 11.277354, false], [10, 140.000046, 12.431759, false], [11, 203.333282, 13.450747, false], [12, 86.666695, 15.0165, false]]
+var cambia = false
+var pos_temp = [[0, 155.233353, 1.664935, false], [0, 18.532949, 2.337623, true], [0, -1.467053, 2.770102, false], [0, -1.467053, 3.176262, false], [0, -1.467053, 3.570058, false], [0, -1.467053, 6.436137, false], [0, -1.467053, 6.769875, false], [0, -1.467053, 7.182365, false], [0, -1.467053, 7.448249, false], [0, -1.467053, 7.806699, false], [0, -1.467053, 8.409382, false], [0, -1.467053, 8.588416, false], [0, -1.467053, 8.94289, false], [0, -1.467053, 9.401746, false], [0, -1.467053, 10.027719, false], [0, -1.467053, 10.367209, false], [0, -1.467053, 10.775926, false], [0, -1.467053, 11.169923, false], [0, -1.467053, 11.685657, false], [0, -1.467053, 12.16355, false], [14, 273.333252, 12.734209, false], [14, 166.666672, 13.268846, false], [14, 70.000015, 13.749817, true], [14, -3.333313, 14.174942, false], [14, -3.333313, 14.602454, false], [14, -3.333313, 15.064106, false], [14, -3.333313, 15.453845, false], [14, -3.333313, 15.957266, false], [14, -3.333313, 16.381637, false], [14, -3.333313, 17.201423, false], [14, -3.333313, 17.644034, false], [14, -3.333313, 18.0202, false]]
 onready var tema = get_parent().get_node("Cancion")
+onready var partitura = get_parent().get_node("partitura")
+
+
 var tema_tiempo
 func _ready():
-#		$Nota.position.x = 500
-	pass
-onready var teclas_cancion := $Nota
+	partitura.modulate.a = 0.4
+onready var nodo_teclas = preload("res://Notas.tscn")
 
 func _process(delta):
+	
 	tema_tiempo = tema.get_playback_position() + AudioServer.get_time_since_last_mix()
+	get_parent().get_node("TiempoCancion").text = var2str(tema_tiempo)
+	
+	var teclas = ['ui_up','ui_down','ui_left','ui_right']
+	var rand_index:int = randi() % teclas.size()
+	var teclas_cancion = nodo_teclas.instance()
 	if contador <= pos_temp.size():
 #		print("tiempo: ", tema_tiempo)
 #		print("tiempo_arr: ", pos_temp[contador -1][2])
 #		print("resta: ",tema_tiempo - pos_temp[contador - 1][2] > 0)
-		if tema_tiempo - pos_temp[contador - 1][2] > 0:
+		get_parent().get_node("TiempoCancion/TiempoArr").text = var2str(pos_temp[contador -1][2])
+		if tema_tiempo - pos_temp[contador - 1][2] > 0: 
 #			print(pos_temp[contador -1][2])
 #			print(tema_tiempo)
 			teclas_cancion.position = Vector2(300,0)
 			contador += 1
+			
+			
+#			add_child(teclas_cancion)
+
+
+
+#		print(teclas[rand_index])
+		if Input.is_action_just_pressed(teclas[rand_index]):
+			print(teclas[rand_index])
+			if teclas[rand_index] == 'ui_up':
+				teclas_cancion.texture = load("res://sprites/Personajes/chobi1.png")
 			add_child(teclas_cancion)
-	if Input.is_action_just_pressed("ui_down"):
-		teclas_cancion.position = Vector2(300,0)
+	if Input.is_action_just_pressed("ui_page_down"):
 		contador += 1
 		add_child(teclas_cancion)
+		teclas_cancion.position.x = 300
 	
-	if Input.is_action_just_pressed("ui_left"):
-		posiciones.append([contador,teclas_cancion.position.x,tema_tiempo,ver_col()])
-		print(contador, " : ",teclas_cancion.position.x," : ",tema_tiempo," : ",ver_col())
-	if Input.is_action_just_pressed("ui_accept"):
-		print(posiciones)
-#	if teclas_cancion:
-#		teclas_cancion.position.x -= 100 * delta
 	if teclas_cancion.position.x > 0:
 		teclas_cancion.position.x -= 200 * delta
 	elif teclas_cancion:
-		remove_child(teclas_cancion)
-		print("teclas ",teclas_cancion)
+		pass
+#		remove_child(teclas_cancion)
+		
+	if Input.is_action_just_pressed("ui_page_up"):
+		posiciones.append([contador,teclas_cancion.position.x,tema_tiempo,ver_col()])
+		print(contador, " : ",teclas_cancion.position.x," : ",tema_tiempo," : ",ver_col())
+		
+	if Input.is_action_just_pressed("ui_page_down"):
+		print(posiciones)
+#	if teclas_cancion:
+#		teclas_cancion.position.x -= 100 * delta
+	if Input.is_action_pressed("ui_accept"):
+		ver_col()
+#		remove_child(teclas_cancion)
+#		remove_child(teclas_cancion)
+#		print("teclas ",teclas_cancion)
 func ver_col():
 	falla = false
 	if toca_externo == true:
 		if toca_izq || toca_centro || toca_der:
 			falla = false
 			if toca_izq:
-				score += 20
+				score += 20 / 3
 			if toca_centro:
-				score += 50
+				score += 50 / 3
 			if toca_der:
-				score += 30
+				score += 30 / 3
 			$Nota/Sprite.modulate = Color("#00FF00")
-#			print(toca_der)
-#			print(toca_centro)
-#			print(toca_izq)
+			print(toca_der)
+			print(toca_centro)
+			print(toca_izq)
 		else:
 			falla = true
-			score -= 60
+			score -= 60 / 3
 			$Nota/Sprite.modulate = Color("#FF0000")
+			$Nota/wrong.play()
 			print("AFUEEERA")
-	print(score)
+	print('score ',score)
 	get_parent().get_node("ScoreText/ScoreValue").text = var2str(score)
 	return falla
 func _on_Nota_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 	if area.get_name() == "Fijo":
 		if area_shape_index == 2:
-#			print("Entro a la derecha")
+			print("Entro a la derecha")
 			toca_der = true
 		elif area_shape_index == 1:
-#			print("Esta en el centro")
+			print("Esta en el centro")
 			toca_centro = true
 		elif area_shape_index == 0:
-#			print("esta en la izquierda")
+			print("esta en la izquierda")
 			toca_izq = true
 	elif area.get_name() == "Externo":
 #		print("externo")
@@ -88,14 +117,22 @@ func _on_Nota_area_shape_entered(area_rid, area, area_shape_index, local_shape_i
 func _on_Nota_area_shape_exited(area_rid, area, area_shape_index, local_shape_index):
 	if area.get_name() == "Fijo":
 		if area_shape_index == 2:
-#			print("Sale a la derecha")
+			print("Sale a la derecha")
 			toca_der = false
 		elif area_shape_index == 1:
-#			print("Sale en el centro")
+			print("Sale en el centro")
 			toca_centro = false
 		elif area_shape_index == 0:
-#			print("Sale en la izquierda")
+			print("Sale en la izquierda")
 			toca_izq = false
 	elif area.get_name() == "Externo":
 #		print("sale externo")
 		toca_externo = false
+
+
+func _on_Fijo_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	pass # Replace with function body.
+
+
+func _on_Fijo_area_shape_exited(area_rid, area, area_shape_index, local_shape_index):
+	pass # Replace with function body.
