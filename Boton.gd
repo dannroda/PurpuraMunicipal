@@ -7,20 +7,31 @@ var falla = false
 var score = 0
 var contador = 0
 var posiciones = []
+var pos_temp = [[0, 153.072815, 1.63427, false], [1, 146.666702, 2.842009, false], [2, 173.333328, 3.818799, false], [3, 203.333282, 4.656605, false], [4, 223.333252, 5.652818, true], [5, 146.666702, 6.932484, false], [6, 206.666611, 7.716017, true], [7, 153.333359, 8.982694, false], [8, 189.999969, 9.997273, false], [9, 213.333267, 11.277354, false], [10, 140.000046, 12.431759, false], [11, 203.333282, 13.450747, false], [12, 86.666695, 15.0165, false]]
 onready var tema = get_parent().get_node("Cancion")
 var tema_tiempo
 func _ready():
 #		$Nota.position.x = 500
 	pass
 onready var teclas_cancion := $Nota
+
 func _process(delta):
-	
-	tema_tiempo = tema.get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
+	tema_tiempo = tema.get_playback_position() + AudioServer.get_time_since_last_mix()
+	if contador <= pos_temp.size():
+#		print("tiempo: ", tema_tiempo)
+#		print("tiempo_arr: ", pos_temp[contador -1][2])
+#		print("resta: ",tema_tiempo - pos_temp[contador - 1][2] > 0)
+		if tema_tiempo - pos_temp[contador - 1][2] > 0:
+#			print(pos_temp[contador -1][2])
+#			print(tema_tiempo)
+			teclas_cancion.position = Vector2(300,0)
+			contador += 1
+			add_child(teclas_cancion)
 	if Input.is_action_just_pressed("ui_down"):
 		teclas_cancion.position = Vector2(300,0)
 		contador += 1
 		add_child(teclas_cancion)
-		
+	
 	if Input.is_action_just_pressed("ui_left"):
 		posiciones.append([contador,teclas_cancion.position.x,tema_tiempo,ver_col()])
 		print(contador, " : ",teclas_cancion.position.x," : ",tema_tiempo," : ",ver_col())
@@ -30,10 +41,9 @@ func _process(delta):
 #		teclas_cancion.position.x -= 100 * delta
 	if teclas_cancion.position.x > 0:
 		teclas_cancion.position.x -= 200 * delta
-	else:
+	elif teclas_cancion:
 		remove_child(teclas_cancion)
-	if Input.is_action_just_pressed("ui_up"):
-		ver_col()
+		print("teclas ",teclas_cancion)
 func ver_col():
 	falla = false
 	if toca_externo == true:
@@ -46,9 +56,9 @@ func ver_col():
 			if toca_der:
 				score += 30
 			$Nota/Sprite.modulate = Color("#00FF00")
-			print(toca_der)
-			print(toca_centro)
-			print(toca_izq)
+#			print(toca_der)
+#			print(toca_centro)
+#			print(toca_izq)
 		else:
 			falla = true
 			score -= 60
@@ -60,32 +70,32 @@ func ver_col():
 func _on_Nota_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 	if area.get_name() == "Fijo":
 		if area_shape_index == 2:
-			print("Entro a la derecha")
+#			print("Entro a la derecha")
 			toca_der = true
 		elif area_shape_index == 1:
-			print("Esta en el centro")
+#			print("Esta en el centro")
 			toca_centro = true
 		elif area_shape_index == 0:
-			print("esta en la izquierda")
+#			print("esta en la izquierda")
 			toca_izq = true
 	elif area.get_name() == "Externo":
-		print("externo")
+#		print("externo")
 		toca_externo = true
 
 	elif area.get_name() == "Externo":
-		print("externo")
+#		print("externo")
 		toca_externo = true
 func _on_Nota_area_shape_exited(area_rid, area, area_shape_index, local_shape_index):
 	if area.get_name() == "Fijo":
 		if area_shape_index == 2:
-			print("Sale a la derecha")
+#			print("Sale a la derecha")
 			toca_der = false
 		elif area_shape_index == 1:
-			print("Sale en el centro")
+#			print("Sale en el centro")
 			toca_centro = false
 		elif area_shape_index == 0:
-			print("Sale en la izquierda")
+#			print("Sale en la izquierda")
 			toca_izq = false
 	elif area.get_name() == "Externo":
-		print("sale externo")
+#		print("sale externo")
 		toca_externo = false
