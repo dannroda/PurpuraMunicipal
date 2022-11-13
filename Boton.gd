@@ -4,39 +4,51 @@ var toca_centro = false
 var toca_der = false
 var toca_externo = false
 var falla = false
-var elemento = "GGH"
+var score = 0
+var contador = 0
 var posiciones = []
 onready var tema = get_parent().get_node("Cancion")
 func _ready():
-		$Nota.position.x = 500
-var teclas_cancion = load("res://Notas.tscn").instance()
+#		$Nota.position.x = 500
+	pass
+onready var teclas_cancion := $Nota
 func _process(delta):
 	if Input.is_action_just_pressed("ui_down"):
-		teclas_cancion.position = Vector2(500,0)
+		teclas_cancion.position = Vector2(300,0)
+		contador += 1
 		add_child(teclas_cancion)
+		
 	if Input.is_action_just_pressed("ui_left"):
-		posiciones.append([teclas_cancion.position.x,tema.get_playback_position()])
+		posiciones.append([contador,teclas_cancion.position.x,tema.get_playback_position(),ver_col()])
+		print(contador, " : ",tema.get_playback_position(), ver_col())
 	if Input.is_action_just_pressed("ui_accept"):
 		print(posiciones)
-	if teclas_cancion.position.x == -30:
+#	if teclas_cancion:
+#		teclas_cancion.position.x -= 100 * delta
+	if teclas_cancion.position.x > 0:
+		teclas_cancion.position.x -= 50 * delta
+	else:
 		remove_child(teclas_cancion)
-	if teclas_cancion:
-		teclas_cancion.position.x -= 100 * delta
-	if $Nota.position.x > 0:
-		$Nota.position.x -= 100 * delta
-		
 	if Input.is_action_just_pressed("ui_up"):
-		if toca_externo == true:
-			if toca_izq && toca_centro && toca_der:
-				falla = false
-				print(toca_der)
-				print(toca_centro)
-				print(toca_izq)
-			else:
-				falla = true
-				print("AFUEEERA")
-
-
+		ver_col()
+func ver_col():
+	if toca_externo == true:
+		if toca_izq || toca_centro || toca_der:
+			falla = false
+			if toca_izq:
+				score += 20
+			if toca_centro:
+				score += 50
+			if toca_der:
+				score += 30
+			print(toca_der)
+			print(toca_centro)
+			print(toca_izq)
+		else:
+			falla = true
+			score -= 60
+			print("AFUEEERA")	
+	return falla
 func _on_Nota_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 	if area.get_name() == "Fijo":
 		if area_shape_index == 2:
