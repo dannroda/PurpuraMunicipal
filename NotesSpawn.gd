@@ -9,10 +9,8 @@ func _on_ButtonExit_pressed():
 
 
 func _on_ButtonStart_pressed():
-	get_tree().change_scene("res://ParallaxBackground.tscn")
+	get_tree().change_scene("res://Control.tscn")
 	
-
-
 
 func _on_ButtonPlay_pressed():
 	if !$sonidito.playing:

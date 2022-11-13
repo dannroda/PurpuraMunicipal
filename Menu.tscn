@@ -20,7 +20,7 @@ margin_top = -117.0
 margin_right = -0.599976
 
 [node name="ButtonStart" type="Button" parent="VBoxContainer"]
-margin_right = 819.0
+margin_right = 1092.0
 margin_bottom = 54.0
 custom_colors/font_color = Color( 0.705882, 0.141176, 0.8, 1 )
 custom_colors/font_color_hover = Color( 0.996078, 0.298039, 0.733333, 1 )
@@ -29,7 +29,7 @@ text = "jugar"
 
 [node name="ButtonExit" type="Button" parent="VBoxContainer"]
 margin_top = 58.0
-margin_right = 819.0
+margin_right = 1092.0
 margin_bottom = 112.0
 custom_colors/font_color = Color( 0.705882, 0.141176, 0.8, 1 )
 custom_colors/font_color_hover = Color( 0.996078, 0.298039, 0.733333, 1 )
@@ -37,6 +37,7 @@ custom_fonts/font = ExtResource( 2 )
 text = "salir"
 
 [node name="ButtonPlay" type="Button" parent="VBoxContainer"]
+visible = false
 margin_top = 116.0
 margin_right = 819.0
 margin_bottom = 170.0
@@ -44,9 +45,10 @@ custom_fonts/font = ExtResource( 2 )
 text = "play"
 
 [node name="bajarVolumen" type="Button" parent="VBoxContainer"]
-margin_top = 174.0
+visible = false
+margin_top = 116.0
 margin_right = 819.0
-margin_bottom = 194.0
+margin_bottom = 136.0
 
 [node name="ParallaxBackground" parent="." instance=ExtResource( 3 )]
 

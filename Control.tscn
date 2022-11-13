@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Boton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/escenario/Fondo.png" type="Texture" id=2]
+[ext_resource path="res://sprites/escenario/partitura.png" type="Texture" id=3]
+[ext_resource path="res://sprites/escenario/gente.png" type="Texture" id=4]
+[ext_resource path="res://sprites/escenario/gente1.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [  ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Control" type="Control"]
+margin_right = 30.0
+margin_bottom = 27.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Node2D" parent="CanvasLayer" instance=ExtResource( 1 )]
+position = Vector2( 567, 541 )
+z_index = 10
+
+[node name="notas" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 688, 539 )
+scale = Vector2( 0.288542, 0.288542 )
+z_index = 1
+texture = ExtResource( 3 )
+
+[node name="fondo" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 687.5, 386.5 )
+scale = Vector2( 0.710937, 0.715741 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="publico1" type="Sprite" parent="CanvasLayer"]
+position = Vector2( 694.25, 392.5 )
+scale = Vector2( 0.698177, 0.700926 )
+texture = ExtResource( 5 )
+
+[node name="publico2" type="Sprite" parent="CanvasLayer"]
+visible = false
+texture = ExtResource( 4 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="CanvasLayer"]
+frames = SubResource( 1 )
