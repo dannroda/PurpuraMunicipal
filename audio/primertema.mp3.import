@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/primertema.mp3-0931fc3d7fbc5fda23af180726f630da.mp3str"
+
+[deps]
+
+source_file="res://audio/primertema.mp3"
+dest_files=[ "res://.import/primertema.mp3-0931fc3d7fbc5fda23af180726f630da.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

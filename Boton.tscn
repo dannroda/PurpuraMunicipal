@@ -6,7 +6,7 @@
 [ext_resource path="res://Notas.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 64, 64 )
+extents = Vector2( 54, 54 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
