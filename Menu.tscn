@@ -9,6 +9,9 @@
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchor_left = 0.1
@@ -18,23 +21,32 @@ anchor_bottom = 1.0
 margin_left = -0.400002
 margin_top = -117.0
 margin_right = -0.599976
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ButtonStart" type="Button" parent="VBoxContainer"]
-margin_right = 1092.0
+margin_right = 1535.0
 margin_bottom = 54.0
 custom_colors/font_color = Color( 0.705882, 0.141176, 0.8, 1 )
 custom_colors/font_color_hover = Color( 0.996078, 0.298039, 0.733333, 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "jugar"
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ButtonExit" type="Button" parent="VBoxContainer"]
 margin_top = 58.0
-margin_right = 1092.0
+margin_right = 1535.0
 margin_bottom = 112.0
 custom_colors/font_color = Color( 0.705882, 0.141176, 0.8, 1 )
 custom_colors/font_color_hover = Color( 0.996078, 0.298039, 0.733333, 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "salir"
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ButtonPlay" type="Button" parent="VBoxContainer"]
 visible = false
@@ -43,12 +55,18 @@ margin_right = 819.0
 margin_bottom = 170.0
 custom_fonts/font = ExtResource( 2 )
 text = "play"
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="bajarVolumen" type="Button" parent="VBoxContainer"]
 visible = false
 margin_top = 116.0
 margin_right = 819.0
 margin_bottom = 136.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ParallaxBackground" parent="." instance=ExtResource( 3 )]
 
@@ -56,8 +74,10 @@ margin_bottom = 136.0
 anchor_left = 0.1
 anchor_right = 0.9
 anchor_bottom = 0.7
-margin_right = 40.0
-margin_bottom = 14.0
+margin_left = -45.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 0.396078, 0.0313726, 0.427451, 1 )
 custom_fonts/font = ExtResource( 4 )
 text = "Purpura Municipal"

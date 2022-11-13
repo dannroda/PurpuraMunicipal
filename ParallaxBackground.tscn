@@ -12,11 +12,12 @@ script = ExtResource( 2 )
 motion_mirroring = Vector2( 3000, 3000 )
 
 [node name="Obras-teatro-municipal-telon" type="Sprite" parent="layer1"]
-position = Vector2( 524.038, 310.703 )
-scale = Vector2( 1.94688, 1.87415 )
+position = Vector2( 962.482, 547.648 )
+scale = Vector2( 2.682, 2.682 )
 texture = ExtResource( 1 )
 
 [node name="musico1" type="ParallaxLayer" parent="."]
+position = Vector2( 460, 365 )
 
 [node name="EwkQh-SwqainZn8" type="Sprite" parent="musico1"]
 position = Vector2( 342, 358 )
@@ -24,6 +25,7 @@ scale = Vector2( 0.4, 0.44 )
 texture = ExtResource( 4 )
 
 [node name="musico2" type="ParallaxLayer" parent="."]
+position = Vector2( 460, 365 )
 scale = Vector2( 0.3, 0.38 )
 
 [node name="Musico-tocando-ilustracion-saxofon107173-14301" type="Sprite" parent="musico2"]
