@@ -67,7 +67,6 @@ z_index = 10
 
 [node name="Cancion" type="AudioStreamPlayer" parent="CanvasLayer"]
 stream = ExtResource( 6 )
-autoplay = true
 
 [node name="TiempoCancion" type="Label" parent="CanvasLayer"]
 margin_left = 806.0
@@ -104,5 +103,8 @@ custom_fonts/font = ExtResource( 7 )
 text = "0"
 
 [node name="ParallaxBackground" parent="." instance=ExtResource( 4 )]
+
+[connection signal="area_shape_entered" from="CanvasLayer/Area/Fijo" to="CanvasLayer/Area" method="_on_Nota_area_shape_entered"]
+[connection signal="area_shape_exited" from="CanvasLayer/Area/Fijo" to="CanvasLayer/Area" method="_on_Nota_area_shape_exited"]
 
 [editable path="CanvasLayer/Area"]

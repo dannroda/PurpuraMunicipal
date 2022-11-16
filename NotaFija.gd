@@ -9,5 +9,7 @@ func _process(delta):
 		arr_fijo = get_overlapping_areas()
 #		var velocity = Vector2.LEFT * speed
 #		position += velocity * delta
-#	if arr != []:
-#		print("el array es", arr)
+#		if arr_fijo != []:
+#			print("arr_fijo ", arr_fijo.size())
+#			print(get_index())
+#			print(get_overlapping_bodies())

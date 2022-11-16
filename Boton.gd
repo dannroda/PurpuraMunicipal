@@ -48,6 +48,8 @@ func _process(delta):
 			if teclas[rand_index] == 'ui_up':
 				teclas_cancion.texture = load("res://sprites/Personajes/chobi1.png")
 			add_child(teclas_cancion)
+		if Input.is_action_just_pressed('ui_up'):
+			teclas_cancion.texture = load("res://sprites/Personajes/chobi1.png")
 	if Input.is_action_just_pressed("ui_page_down"):
 		contador += 1
 		add_child(teclas_cancion)
@@ -55,84 +57,87 @@ func _process(delta):
 	
 	if teclas_cancion.position.x > 0:
 		teclas_cancion.position.x -= 200 * delta
+		print(teclas_cancion.position.x)
 	elif teclas_cancion:
-		pass
-#		remove_child(teclas_cancion)
+		teclas_cancion.queue_free()
 		
 	if Input.is_action_just_pressed("ui_page_up"):
-		posiciones.append([contador,teclas_cancion.position.x,tema_tiempo,ver_col()])
-		print(contador, " : ",teclas_cancion.position.x," : ",tema_tiempo," : ",ver_col())
+		posiciones.append([contador,teclas_cancion.position.x,tema_tiempo,ver_col(teclas_cancion)])
+#		print(contador, " : ",teclas_cancion.position.x," : ",tema_tiempo," : ",ver_col(teclas_cancion))
 		
-	if Input.is_action_just_pressed("ui_page_down"):
+	if Input.is_action_just_pressed("ui_cancel"):
 		print(posiciones)
 #	if teclas_cancion:
 #		teclas_cancion.position.x -= 100 * delta
 	if Input.is_action_pressed("ui_accept"):
-		ver_col()
+		ver_col(teclas_cancion)
 #		remove_child(teclas_cancion)
 #		remove_child(teclas_cancion)
 #		print("teclas ",teclas_cancion)
-func ver_col():
+func ver_col(node):
+	var tocada = false
 	falla = false
 	if toca_externo == true:
+		tocada = true
 		if toca_izq || toca_centro || toca_der:
 			falla = false
 			if toca_izq:
-				score += 20 / 3
+				score += 20 
 			if toca_centro:
-				score += 50 / 3
+				score += 50
 			if toca_der:
-				score += 30 / 3
-			$Nota/Sprite.modulate = Color("#00FF00")
-			print(toca_der)
-			print(toca_centro)
-			print(toca_izq)
+				score += 30
+			node.modulate = Color("#00FF00")
+			print(node)
+#			print(toca_der)
+#			print(toca_centro)
+#			print(toca_izq)
 		else:
 			falla = true
-			score -= 60 / 3
-			$Nota/Sprite.modulate = Color("#FF0000")
+			score -= 60
+			node.modulate = Color("#FF0000")
 			$Nota/wrong.play()
 			print("AFUEEERA")
-	print('score ',score)
-	get_parent().get_node("ScoreText/ScoreValue").text = var2str(score)
+	if tocada:
+		get_parent().get_node("ScoreText/ScoreValue").text = var2str(score)
+		print('score ',score)
+	tocada = false
 	return falla
 func _on_Nota_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	if area.get_name() == "Fijo":
-		if area_shape_index == 2:
-			print("Entro a la derecha")
-			toca_der = true
-		elif area_shape_index == 1:
-			print("Esta en el centro")
-			toca_centro = true
-		elif area_shape_index == 0:
-			print("esta en la izquierda")
-			toca_izq = true
-	elif area.get_name() == "Externo":
+#	print("Entered ",area.get_name(), " ", area_shape_index, " ", local_shape_index)
+#	if area.get_name() == "Fijo":
+#		print('tests ',area_shape_index)
+#		print('testss ',local_shape_index)
+	if local_shape_index == 2:
+#		print("Entro a la derecha")
+		toca_der = true
+	elif local_shape_index == 1:
+#		print("Esta en el centro")
+		toca_centro = true
+	elif local_shape_index == 0:
+#		print("esta en la izquierda")
+		toca_izq = true
+#	elif area.get_name() == "Externo":
 #		print("externo")
-		toca_externo = true
+	toca_externo = true
 
-	elif area.get_name() == "Externo":
+#	elif area.get_name() == "Externo":
 #		print("externo")
-		toca_externo = true
+#		toca_externo = true
 func _on_Nota_area_shape_exited(area_rid, area, area_shape_index, local_shape_index):
-	if area.get_name() == "Fijo":
-		if area_shape_index == 2:
-			print("Sale a la derecha")
-			toca_der = false
-		elif area_shape_index == 1:
-			print("Sale en el centro")
-			toca_centro = false
-		elif area_shape_index == 0:
-			print("Sale en la izquierda")
-			toca_izq = false
-	elif area.get_name() == "Externo":
+#	print("Exited ",area.get_name(), " ", area_shape_index, " ", local_shape_index)
+#	print('testx ',area_shape_index)
+#	print('testxx ',local_shape_index)
+#	if area.get_name() == "Fijo":
+	if local_shape_index == 2:
+#		print("Sale a la derecha")
+		toca_der = false
+	elif local_shape_index == 1:
+#		print("Sale en el centro")
+		toca_centro = false
+	elif local_shape_index == 0:
+#		print("Sale en la izquierda")
+		toca_izq = false
+#	elif area.get_name() == "Externo":
 #		print("sale externo")
-		toca_externo = false
-
-
-func _on_Fijo_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	pass # Replace with function body.
-
-
-func _on_Fijo_area_shape_exited(area_rid, area, area_shape_index, local_shape_index):
-	pass # Replace with function body.
+#		toca_externo = false

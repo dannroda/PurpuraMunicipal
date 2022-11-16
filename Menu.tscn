@@ -77,7 +77,6 @@ stream = ExtResource( 7 )
 
 [node name="Intro" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/ButtonStart" to="." method="_on_ButtonStart_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonExit" to="." method="_on_ButtonExit_pressed"]
