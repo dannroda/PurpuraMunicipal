@@ -6,6 +6,7 @@ export var pos_flecha:String = 'ui_up'
 export var teclas = ['ui_up','ui_down','ui_left','ui_right']
 export var rand_index:int = randi() % teclas.size()
 onready var sonido_error := $wrong
+export var acierto:bool = false
 func _ready():
 #	$Sprite.texture = load("res://sprites/partitura/flecha animacion.png")
 	pos_flecha = teclas[rand_index]
@@ -24,15 +25,27 @@ func _process(delta):
 		if pos_flecha == 'ui_down':
 			rotation_degrees = 180
 		position += velocity * delta
-		if Input.is_action_just_pressed(pos_flecha):
-			tecla_fail = get_parent().ver_col()
-			print("POSICION ", pos_flecha)
-			print(tecla_fail)
+		if position.x < 0:
 			queue_free()
+		
+#		if acierto == true:
+#			print("TEXTO")
+#			if Input.is_action_just_pressed(pos_flecha):
+#				tecla_fail = get_parent().ver_col()
+#				print("POSICION ", pos_flecha)
+#				print(tecla_fail)
+#				queue_free()
+#			acierto = false
 func _input(event):
 	if event is InputEventKey and event.pressed:
-		if event.scancode != sane_input(pos_flecha):
-			get_parent().get_node("sonidofail").play()
+		acierto = true
+		if event.scancode != sane_input(pos_flecha) && acierto:
+			print(pos_flecha)
+#			print(get_parent().acierto)
+			acierto = get_parent().ver_col()
+			acierto = false
+			print(acierto)
+#			get_parent().get_node("sonidofail").play()
 #			print("ES ARRIBA")
 
 #		if tecla_fail != false:
