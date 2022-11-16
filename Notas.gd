@@ -1,6 +1,6 @@
 extends Area2D
 export var nota_scene: PackedScene
-export var speed:float = 200.0
+export var speed:float = 150.0
 export var falla:bool = false
 export var pos_flecha:String = 'ui_up'
 export var teclas = ['ui_up','ui_down','ui_left','ui_right']

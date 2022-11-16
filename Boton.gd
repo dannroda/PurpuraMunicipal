@@ -15,32 +15,44 @@ onready var partitura = get_parent().get_node("partitura")
 export var acierto:bool
 var combo:int = 0
 var tema_tiempo
+var timer = Timer.new()
 func _ready():
 	partitura.modulate.a = 0.4
+	timer.connect("timeout",self,"tempo")
+	timer.wait_time = 0.9
+	add_child(timer)
+	timer.start()
 onready var nodo_teclas = preload("res://Notas.tscn")
-
+func tempo():
+	var teclas_cancion = nodo_teclas.instance()	
+	teclas_cancion.position = Vector2(500,0)
+	contador += 1
+	indice_tecla = teclas_cancion.rand_index
+	teclas_cancion.pos_flecha = teclas_cancion.teclas[indice_tecla]
+	$Fijo.pos_flecha = teclas_cancion.pos_flecha
+	add_child(teclas_cancion)
 func _process(delta):
 	
 	tema_tiempo = tema.get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
 	get_parent().get_node("TiempoCancion").text = var2str(tema_tiempo)
-	
-
+	if tema_tiempo - tema.stream.get_length() >= -0.02:
+		get_tree().change_scene("res://Win.tscn")
+	print(tema_tiempo - tema.stream.get_length())
 	var teclas_cancion = nodo_teclas.instance()
 	if contador < pos_temp.size():
 #		print("tiempo: ", tema_tiempo)
 #		print("tiempo_arr: ", pos_temp[contador -1][2])
 #		print("resta: ",tema_tiempo - pos_temp[contador - 1][2] > 0)
-		get_parent().get_node("TiempoCancion/TiempoArr").text = var2str(pos_temp[contador][2])
-		if tema_tiempo - pos_temp[contador][2] > 0: 
-#			print(pos_temp[contador][2])
-#			print(tema_tiempo)
-			teclas_cancion.position = Vector2(300,0)
-			contador += 1
-			indice_tecla = teclas_cancion.rand_index
-			teclas_cancion.pos_flecha = teclas_cancion.teclas[indice_tecla]
-			$Fijo.pos_flecha = teclas_cancion.pos_flecha
-			add_child(teclas_cancion)
-			teclas_cancion.position.x = 300
+		get_parent().get_node("TiempoCancion/TiempoArr").text = var2str(tema.stream.get_length())
+#		if tema_tiempo - pos_temp[contador][2] > 0: 
+##			print(pos_temp[contador][2])
+##			print(tema_tiempo)
+#			teclas_cancion.position = Vector2(300,0)
+#			contador += 1
+#			indice_tecla = teclas_cancion.rand_index
+#			teclas_cancion.pos_flecha = teclas_cancion.teclas[indice_tecla]
+#			$Fijo.pos_flecha = teclas_cancion.pos_flecha
+#			add_child(teclas_cancion)
 
 	if Input.is_action_just_pressed("ui_page_down"):
 		contador += 1

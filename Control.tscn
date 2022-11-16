@@ -81,7 +81,9 @@ visible = false
 position = Vector2( 419.5, 0.5 )
 
 [node name="Fijo" parent="CanvasLayer/Area" index="1"]
-position = Vector2( 143.25, 0.5 )
+visible = false
+position = Vector2( 144.75, 1.75 )
+scale = Vector2( 1.5, 1.5 )
 
 [node name="sonidofail" type="AudioStreamPlayer" parent="CanvasLayer/Area"]
 stream = ExtResource( 12 )
@@ -92,17 +94,17 @@ autoplay = true
 
 [node name="TiempoCancion" type="Label" parent="CanvasLayer"]
 visible = false
-margin_left = 806.0
-margin_top = 958.0
-margin_right = 1047.0
+margin_left = 877.0
+margin_top = 981.0
+margin_right = 1118.0
 margin_bottom = 1082.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 7 )
 text = "Score: "
 
 [node name="TiempoArr" type="Label" parent="CanvasLayer/TiempoCancion"]
-margin_left = 478.0
-margin_right = 699.0
+margin_left = 305.0
+margin_right = 526.0
 margin_bottom = 98.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 7 )
