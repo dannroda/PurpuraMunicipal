@@ -8,6 +8,7 @@ var score = 0
 var contador = 0
 var posiciones = []
 var cambia = false
+var indice_tecla = 'ui_up'
 var pos_temp = [[0, 155.233353, 1.664935, false], [0, 18.532949, 2.337623, true], [0, -1.467053, 2.770102, false], [0, -1.467053, 3.176262, false], [0, -1.467053, 3.570058, false], [0, -1.467053, 6.436137, false], [0, -1.467053, 6.769875, false], [0, -1.467053, 7.182365, false], [0, -1.467053, 7.448249, false], [0, -1.467053, 7.806699, false], [0, -1.467053, 8.409382, false], [0, -1.467053, 8.588416, false], [0, -1.467053, 8.94289, false], [0, -1.467053, 9.401746, false], [0, -1.467053, 10.027719, false], [0, -1.467053, 10.367209, false], [0, -1.467053, 10.775926, false], [0, -1.467053, 11.169923, false], [0, -1.467053, 11.685657, false], [0, -1.467053, 12.16355, false], [14, 273.333252, 12.734209, false], [14, 166.666672, 13.268846, false], [14, 70.000015, 13.749817, true], [14, -3.333313, 14.174942, false], [14, -3.333313, 14.602454, false], [14, -3.333313, 15.064106, false], [14, -3.333313, 15.453845, false], [14, -3.333313, 15.957266, false], [14, -3.333313, 16.381637, false], [14, -3.333313, 17.201423, false], [14, -3.333313, 17.644034, false], [14, -3.333313, 18.0202, false]]
 onready var tema = get_parent().get_node("Cancion")
 onready var partitura = get_parent().get_node("partitura")
@@ -23,8 +24,7 @@ func _process(delta):
 	tema_tiempo = tema.get_playback_position() + AudioServer.get_time_since_last_mix()
 	get_parent().get_node("TiempoCancion").text = var2str(tema_tiempo)
 	
-	var teclas = ['ui_up','ui_down','ui_left','ui_right']
-	var rand_index:int = randi() % teclas.size()
+
 	var teclas_cancion = nodo_teclas.instance()
 	if contador <= pos_temp.size():
 #		print("tiempo: ", tema_tiempo)
@@ -40,41 +40,31 @@ func _process(delta):
 			
 #			add_child(teclas_cancion)
 
-
-
-#		print(teclas[rand_index])
-		if Input.is_action_just_pressed(teclas[rand_index]):
-			print(teclas[rand_index])
-			if teclas[rand_index] == 'ui_up':
-				teclas_cancion.texture = load("res://sprites/Personajes/chobi1.png")
-			add_child(teclas_cancion)
-		if Input.is_action_just_pressed('ui_up'):
-			teclas_cancion.texture = load("res://sprites/Personajes/chobi1.png")
 	if Input.is_action_just_pressed("ui_page_down"):
 		contador += 1
+		indice_tecla = teclas_cancion.rand_index
+		teclas_cancion.pos_flecha = teclas_cancion.teclas[indice_tecla]
+		$Fijo.pos_flecha = teclas_cancion.pos_flecha
 		add_child(teclas_cancion)
 		teclas_cancion.position.x = 300
 	
-	if teclas_cancion.position.x > 0:
-		teclas_cancion.position.x -= 200 * delta
-		print(teclas_cancion.position.x)
-	elif teclas_cancion:
+	if teclas_cancion.position.x == 0:
 		teclas_cancion.queue_free()
-		
-	if Input.is_action_just_pressed("ui_page_up"):
-		posiciones.append([contador,teclas_cancion.position.x,tema_tiempo,ver_col(teclas_cancion)])
+	if Input.is_action_just_pressed("ui_accept"):
+		posiciones.append([contador,teclas_cancion.position.x,tema_tiempo,ver_col()])
 #		print(contador, " : ",teclas_cancion.position.x," : ",tema_tiempo," : ",ver_col(teclas_cancion))
 		
 	if Input.is_action_just_pressed("ui_cancel"):
 		print(posiciones)
 #	if teclas_cancion:
 #		teclas_cancion.position.x -= 100 * delta
-	if Input.is_action_pressed("ui_accept"):
-		ver_col(teclas_cancion)
+#	if Input.is_action_pressed("ui_accept"):
+#		ver_col(teclas_cancion)
 #		remove_child(teclas_cancion)
 #		remove_child(teclas_cancion)
 #		print("teclas ",teclas_cancion)
-func ver_col(node):
+
+func ver_col():
 	var tocada = false
 	falla = false
 	if toca_externo == true:
@@ -87,16 +77,16 @@ func ver_col(node):
 				score += 50
 			if toca_der:
 				score += 30
-			node.modulate = Color("#00FF00")
-			print(node)
+#			node.modulate = Color("#00FF00")
+#			print(node)
 #			print(toca_der)
 #			print(toca_centro)
 #			print(toca_izq)
 		else:
 			falla = true
 			score -= 60
-			node.modulate = Color("#FF0000")
-			$Nota/wrong.play()
+#			node.modulate = Color("#FF0000")
+#			$Nota/wrong.play()
 			print("AFUEEERA")
 	if tocada:
 		get_parent().get_node("ScoreText/ScoreValue").text = var2str(score)

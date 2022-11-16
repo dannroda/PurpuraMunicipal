@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Boton.tscn" type="PackedScene" id=1]
 [ext_resource path="res://sprites/escenario/boceto2.png" type="Texture" id=2]
@@ -11,10 +11,14 @@
 [ext_resource path="res://sprites/Personajes/Batero grande.png" type="Texture" id=9]
 [ext_resource path="res://sprites/Personajes/Bajista grande.png" type="Texture" id=10]
 [ext_resource path="res://sprites/Personajes/Guitarrista grande.png" type="Texture" id=11]
+[ext_resource path="res://audio/error404 al tocar.wav" type="AudioStream" id=12]
 
 [node name="Control" type="Control"]
 margin_right = 30.0
 margin_bottom = 27.0
+__meta__ = {
+"_edit_horizontal_guides_": [ 403.0, 658.0 ]
+}
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -22,6 +26,9 @@ margin_bottom = 27.0
 position = Vector2( 1032, 536 )
 z_index = 11
 texture = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="partitura" type="Sprite" parent="CanvasLayer"]
 position = Vector2( 960, 538 )
@@ -63,7 +70,16 @@ texture = ExtResource( 8 )
 [node name="Area" parent="CanvasLayer" instance=ExtResource( 1 )]
 position = Vector2( 462, 531 )
 scale = Vector2( 4, 4 )
-z_index = 10
+z_index = 1
+
+[node name="Nota" parent="CanvasLayer/Area" index="0"]
+position = Vector2( 419.5, 0.5 )
+
+[node name="Fijo" parent="CanvasLayer/Area" index="1"]
+position = Vector2( 143.25, 0.5 )
+
+[node name="sonidofail" type="AudioStreamPlayer" parent="CanvasLayer/Area"]
+stream = ExtResource( 12 )
 
 [node name="Cancion" type="AudioStreamPlayer" parent="CanvasLayer"]
 stream = ExtResource( 6 )
