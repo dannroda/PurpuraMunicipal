@@ -2,7 +2,9 @@ extends Node
 
 func _ready():
 	pass
-
+func _input(event):
+	if event.is_action_pressed("fullscreen"):
+		OS.window_fullscreen = !OS.window_fullscreen
 func _on_ButtonExit_pressed():
 	get_tree().quit()
 	
@@ -55,3 +57,8 @@ func _on_Creditos_mouse_exited():
 func _on_ButtonExit_focus_entered():
 	$menumov.play()
 	pass # Replace with function body.
+
+
+func _on_Intro_finished():
+	$Intro.play()
+#	pass # Replace with function body.

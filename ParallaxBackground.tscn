@@ -130,3 +130,9 @@ __meta__ = {
 [node name="musico4" type="ParallaxLayer" parent="."]
 
 [node name="Luces_todas" type="ParallaxLayer" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.017
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

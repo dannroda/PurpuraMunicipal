@@ -13,6 +13,7 @@ extents = Vector2( 145, 54 )
 script = ExtResource( 1 )
 
 [node name="Nota" parent="." instance=ExtResource( 2 )]
+visible = false
 position = Vector2( 435, 0 )
 
 [node name="Fijo" parent="." instance=ExtResource( 3 )]

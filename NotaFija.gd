@@ -2,7 +2,7 @@ extends Area2D
 #export var nota_scene: PackedScene
 #export var speed:float = 200.0
 export var arr_fijo = []
-export var pos_flecha:String = 'ui_up'
+export var pos_flecha:String
 func _ready():
 	pass
 	

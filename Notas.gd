@@ -2,7 +2,7 @@ extends Area2D
 export var nota_scene: PackedScene
 export var speed:float = 150.0
 export var falla:bool = false
-export var pos_flecha:String = 'ui_up'
+export var pos_flecha:String 
 export var teclas = ['ui_up','ui_down','ui_left','ui_right']
 export var rand_index:int = randi() % teclas.size()
 onready var sonido_error := $wrong
@@ -27,6 +27,7 @@ func _process(delta):
 		position += velocity * delta
 		if position.x < 0:
 			queue_free()
+#			get_parent().vidas -= 1
 		
 #		if acierto == true:
 #			print("TEXTO")
@@ -39,12 +40,15 @@ func _process(delta):
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		acierto = true
-		if event.scancode != sane_input(pos_flecha) && acierto:
-			print(pos_flecha)
+		print(event.is_action(pos_flecha))
+		if event.is_action(pos_flecha) && acierto:
+#			print(pos_flecha)
 #			print(get_parent().acierto)
 			acierto = get_parent().ver_col()
-			acierto = false
-			print(acierto)
+#			queue_free()
+		acierto = false
+
+#		print(acierto)
 #			get_parent().get_node("sonidofail").play()
 #			print("ES ARRIBA")
 

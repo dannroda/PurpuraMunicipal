@@ -132,3 +132,4 @@ stream = ExtResource( 17 )
 [connection signal="pressed" from="VBoxContainer/ButtonExit" to="." method="_on_ButtonExit_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonPlay" to="." method="_on_ButtonPlay_pressed"]
 [connection signal="pressed" from="VBoxContainer/bajarVolumen" to="." method="_on_bajarVolumen_pressed"]
+[connection signal="finished" from="Intro" to="." method="_on_Intro_finished"]

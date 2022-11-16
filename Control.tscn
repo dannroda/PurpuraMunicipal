@@ -17,7 +17,8 @@
 margin_right = 30.0
 margin_bottom = 27.0
 __meta__ = {
-"_edit_horizontal_guides_": [ 403.0, 658.0 ]
+"_edit_horizontal_guides_": [ 403.0, 658.0 ],
+"_edit_vertical_guides_": [ 1415.0 ]
 }
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -77,16 +78,16 @@ scale = Vector2( 4, 4 )
 z_index = 1
 
 [node name="Nota" parent="CanvasLayer/Area" index="0"]
-visible = false
-position = Vector2( 419.5, 0.5 )
+position = Vector2( 436.25, -1 )
 
 [node name="Fijo" parent="CanvasLayer/Area" index="1"]
 visible = false
 position = Vector2( 144.75, 1.75 )
-scale = Vector2( 1.5, 1.5 )
+scale = Vector2( 1.1, 1.1 )
 
 [node name="sonidofail" type="AudioStreamPlayer" parent="CanvasLayer/Area"]
 stream = ExtResource( 12 )
+volume_db = 8.399
 
 [node name="Cancion" type="AudioStreamPlayer" parent="CanvasLayer"]
 stream = ExtResource( 6 )
@@ -111,10 +112,10 @@ custom_fonts/font = ExtResource( 7 )
 text = "0"
 
 [node name="ScoreText" type="Label" parent="CanvasLayer"]
-margin_left = 823.0
-margin_top = 69.0
-margin_right = 1064.0
-margin_bottom = 193.0
+margin_left = 1418.0
+margin_top = 824.0
+margin_right = 1659.0
+margin_bottom = 948.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 7 )
 text = "Score: "
@@ -128,6 +129,7 @@ custom_fonts/font = ExtResource( 7 )
 text = "0"
 
 [node name="Combo" type="Label" parent="CanvasLayer"]
+visible = false
 margin_left = 856.0
 margin_top = 881.0
 margin_right = 1138.0
@@ -144,7 +146,39 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 7 )
 text = "0"
 
+[node name="VidasText" type="Label" parent="CanvasLayer"]
+margin_left = 1418.0
+margin_top = 98.0
+margin_right = 1659.0
+margin_bottom = 196.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "Vidas: "
+
+[node name="VidasCount" type="Label" parent="CanvasLayer/VidasText"]
+margin_left = 263.0
+margin_top = -7.0
+margin_right = 303.0
+margin_bottom = 91.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "3"
+
 [node name="ParallaxBackground" parent="." instance=ExtResource( 4 )]
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+margin_left = 838.0
+margin_top = 936.0
+margin_right = 1219.0
+margin_bottom = 1034.0
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+visible = false
+margin_left = 175.0
+margin_top = 841.0
+margin_right = 504.0
+margin_bottom = 1024.0
 
 [connection signal="area_shape_entered" from="CanvasLayer/Area/Fijo" to="CanvasLayer/Area" method="_on_Nota_area_shape_entered"]
 [connection signal="area_shape_exited" from="CanvasLayer/Area/Fijo" to="CanvasLayer/Area" method="_on_Nota_area_shape_exited"]

@@ -16,12 +16,14 @@ export var acierto:bool
 var combo:int = 0
 var tema_tiempo
 var timer = Timer.new()
+export var vidas:int = 3
 func _ready():
 	partitura.modulate.a = 0.4
 	timer.connect("timeout",self,"tempo")
 	timer.wait_time = 0.9
 	add_child(timer)
 	timer.start()
+	$Nota.queue_free()
 onready var nodo_teclas = preload("res://Notas.tscn")
 func tempo():
 	var teclas_cancion = nodo_teclas.instance()	
@@ -37,13 +39,12 @@ func _process(delta):
 	get_parent().get_node("TiempoCancion").text = var2str(tema_tiempo)
 	if tema_tiempo - tema.stream.get_length() >= -0.02:
 		get_tree().change_scene("res://Win.tscn")
-	print(tema_tiempo - tema.stream.get_length())
-	var teclas_cancion = nodo_teclas.instance()
-	if contador < pos_temp.size():
-#		print("tiempo: ", tema_tiempo)
-#		print("tiempo_arr: ", pos_temp[contador -1][2])
-#		print("resta: ",tema_tiempo - pos_temp[contador - 1][2] > 0)
-		get_parent().get_node("TiempoCancion/TiempoArr").text = var2str(tema.stream.get_length())
+	if vidas <= 0:
+		get_tree().change_scene("res://Gameover.tscn")
+#	print(tema_tiempo - tema.stream.get_length())
+#	var teclas_cancion = nodo_teclas.instance()
+#	if contador < pos_temp.size():
+#		get_parent().get_node("TiempoCancion/TiempoArr").text = var2str(tema.stream.get_length())
 #		if tema_tiempo - pos_temp[contador][2] > 0: 
 ##			print(pos_temp[contador][2])
 ##			print(tema_tiempo)
@@ -53,23 +54,23 @@ func _process(delta):
 #			teclas_cancion.pos_flecha = teclas_cancion.teclas[indice_tecla]
 #			$Fijo.pos_flecha = teclas_cancion.pos_flecha
 #			add_child(teclas_cancion)
-
-	if Input.is_action_just_pressed("ui_page_down"):
-		contador += 1
-		indice_tecla = teclas_cancion.rand_index
-		teclas_cancion.pos_flecha = teclas_cancion.teclas[indice_tecla]
-		$Fijo.pos_flecha = teclas_cancion.pos_flecha
-		add_child(teclas_cancion)
-		teclas_cancion.position.x = 300
-	
-	if teclas_cancion.position.x == 0:
-		teclas_cancion.queue_free()
-	if Input.is_action_just_pressed("entrada"):
-		posiciones.append([contador,teclas_cancion.position.x,tema_tiempo,ver_col()])
+#
+#	if Input.is_action_just_pressed("ui_page_down"):
+#		contador += 1
+#		indice_tecla = teclas_cancion.rand_index
+#		teclas_cancion.pos_flecha = teclas_cancion.teclas[indice_tecla]
+#		$Fijo.pos_flecha = teclas_cancion.pos_flecha
+#		add_child(teclas_cancion)
+#		teclas_cancion.position.x = 300
+#
+#	if teclas_cancion.position.x == 0:
+#		teclas_cancion.queue_free()
+#	if Input.is_action_just_pressed("entrada"):
+#		posiciones.append([contador,teclas_cancion.position.x,tema_tiempo,ver_col()])
 #		print(contador, " : ",teclas_cancion.position.x," : ",tema_tiempo," : ",ver_col(teclas_cancion))
 		
-	if Input.is_action_just_pressed("ui_cancel"):
-		print(posiciones)
+#	if Input.is_action_just_pressed("ui_cancel"):
+#		print(posiciones)
 #	if teclas_cancion:
 #		teclas_cancion.position.x -= 100 * delta
 #	if Input.is_action_pressed("ui_accept"):
@@ -87,36 +88,36 @@ func ver_col():
 			combo += 1
 			falla = false
 			if toca_izq:
-#				aciertos[0] = true
 				score += 20 
 			if toca_centro:
-#				aciertos[1] = true
 				score += 50
 			if toca_der:
-#				aciertos[2] = true
 				score += 30
 			acierto = true
-#			get_parent().get_node("cuadrado").modulate = Color("#00ff00")
-#			node.modulate = Color("#00FF00")
-#			print(node)
-#			print(toca_der)
-#			print(toca_centro)
-#			print(toca_izq)
 		else:
 			falla = true
 			score -= 60
 			combo = 0
 			$sonidofail.play()
-#			node.modulate = Color("#FF0000")
-#			$Nota/wrong.play()
 			print("AFUEEERA")
+	if falla == false:
+		get_parent().get_node("cuadrado").modulate = Color("#00ff00")
+	else:
+		vidas -= 1
+		get_parent().get_node("cuadrado").modulate = Color("#ffffff")
+		print("vidas ", vidas)
+		falla = false
 	if tocada:
 		get_parent().get_node("ScoreText/ScoreValue").text = var2str(score)
 		get_parent().get_node("Combo/ComboValue").text = var2str(combo)
+		get_parent().get_node("VidasText/VidasCount").text = var2str(vidas)
 		print('score ',score)
 		print('combo ', combo)
 	tocada = false
 	return falla
+func _input(event):
+	if event is InputEventKey and !event.pressed:
+		get_parent().get_node("cuadrado").modulate = Color("#ffffff")
 func _on_Nota_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
 #	print("Entered ",area.get_name(), " ", area_shape_index, " ", local_shape_index)
 #	if area.get_name() == "Fijo":
