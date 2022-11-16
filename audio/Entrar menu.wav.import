@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Entrar menu.wav-727f3ef73643bb00ce1e13df28893db4.sample"
+
+[deps]
+
+source_file="res://audio/Entrar menu.wav"
+dest_files=[ "res://.import/Entrar menu.wav-727f3ef73643bb00ce1e13df28893db4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
